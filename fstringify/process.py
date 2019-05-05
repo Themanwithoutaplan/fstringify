@@ -107,7 +107,7 @@ def get_str_bin_op_lines(code):
             yield (start, end)
 
 
-def fstringify_code_by_line(code, stats=False, debug=False):
+def no_skipping(code):
     raw_code_lines = code.split("\n")
     no_skip_range = []
     scopes_by_idx = {}
@@ -128,11 +128,16 @@ def fstringify_code_by_line(code, stats=False, debug=False):
             indent=get_indent(raw_scope[0]),
         )
         no_skip_range += list(range(start_idx, end))
+    return no_skip_range, scopes_by_idx
+
+
+def fstringify_code_by_line(code, stats=False, debug=False):
+    raw_code_lines = code.split("\n")
+    no_skip_range, scopes_by_idx = no_skipping(code)
 
     result_lines = []
     for line_idx, raw_line in enumerate(raw_code_lines):
         lineno = line_idx + 1
-        # indented = get_indent(raw_line)
 
         if line_idx not in no_skip_range:
             result_lines.append(raw_line)
