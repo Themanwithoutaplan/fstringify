@@ -121,16 +121,16 @@ def no_skipping(code):
         if not raw_scope:
             continue
 
-        first_non_blank = 0
-        for i,l in enumerate(raw_scope):
-            if l:
-                first_non_blank = i
+        for line in raw_scope:
+            if line:
+                indent = get_indent(line)
+                break
 
         strip_scope = map(lambda x: x.strip(), raw_scope)
         scopes_by_idx[start_idx] = dict(
             raw_scope=raw_scope,
             strip_scope=strip_scope,
-            indent=get_indent(raw_scope[0]),
+            indent=indent,
         )
         no_skip_range += list(range(start_idx, end))
     return no_skip_range, scopes_by_idx

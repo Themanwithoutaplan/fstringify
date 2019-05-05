@@ -1,5 +1,3 @@
-import pytest
-
 from fstringify.process import (
     no_skipping,
     rebuild_transformed_lines,
@@ -32,7 +30,6 @@ def test_no_skipping():
 )"""
 
 
-@pytest.mark.xfail
 def test_indent():
     code = """
     def write_row(self, xf, row, row_idx):
@@ -44,7 +41,7 @@ def test_indent():
     assert lines == [2, 3]
     assert scoped['raw_scope'] == [
         '',
-         "        attrs = {'r': '%d' % row_idx}"
+        "        attrs = {'r': '%d' % row_idx}"
     ]
     assert scoped['indent'] == "        "
     assert "\n".join(scoped["strip_scope"]) == """\nattrs = {'r': '%d' % row_idx}"""
