@@ -121,6 +121,11 @@ def no_skipping(code):
         if not raw_scope:
             continue
 
+        first_non_blank = 0
+        for i,l in enumerate(raw_scope):
+            if l:
+                first_non_blank = i
+
         strip_scope = map(lambda x: x.strip(), raw_scope)
         scopes_by_idx[start_idx] = dict(
             raw_scope=raw_scope,
