@@ -132,7 +132,7 @@ def fstringify_code_by_line(code, stats=False, debug=False):
     result_lines = []
     for line_idx, raw_line in enumerate(raw_code_lines):
         lineno = line_idx + 1
-        indented = get_indent(raw_line)
+        # indented = get_indent(raw_line)
 
         if line_idx not in no_skip_range:
             result_lines.append(raw_line)
