@@ -1,7 +1,19 @@
 from fstringify.process import (
     no_skipping,
     rebuild_transformed_lines,
+    get_str_bin_op_lines,
 )
+
+
+def test_binary_op_line():
+    code = """
+    def write_row(self, xf, row, row_idx):
+
+        attrs = {'r': '%d' % row_idx}
+"""
+    bounds = list(get_str_bin_op_lines(code))
+    assert bounds == [(3, 4)]
+
 
 def test_no_skipping():
     code = """
@@ -37,6 +49,7 @@ def test_indent():
         attrs = {'r': '%d' % row_idx}
             """
     lines, scope = no_skipping(code)
+    assert lines == [2, 3]
     scoped = scope[2]
     assert lines == [2, 3]
     assert scoped['raw_scope'] == [
