@@ -84,7 +84,7 @@ def get_str_bin_op_lines(code):
         last_toknum = None
         last_tokval = None
         found = False
-        for toknum, tokval, _, _, _ in chunk:
+        for toknum, tokval, *rest in chunk:
             if (
                 toknum == 53
                 and tokval == "%"
